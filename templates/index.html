@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NewsDog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        img{
+            width: 400px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="">News Dog</a>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" method="post" action="">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search News!" aria-label="Search" name="query" required>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
+    <div class="container">
+        {% set N = results|length %}
+        {% set col = 2 %}
+        {%for i in range(N//col+1)%}
+            <br>
+            <div class="row">
+                {%for j in range(col)%}
+                    {% if i*col+j < N %}
+                        <div class="col-md" align="center">
+                            <br><br>
+                            <a href="{{results[i*col+j]['url']}}"><h3>{{results[i*col+j]['title']}}</h3>
+                            <img src="{{results[i*col+j]['urlToImage']}}"></a>
+                            <br>
+                            <i><b>Published At: {{results[i*col+j]['publishedAt']}}</b></i>
+                            <br>
+                            <b>Source: {{results[i*col+j]['source']['name']}}</b>
+                            <p id="news_desc">{{results[i*col+j]['description']}}</p>
+                            <a href="{{results[i*col+j]['url']}}">Read More</a>
+                            <br>
+                        </div>
+                    {% endif %}
+                {%endfor%}
+                <br>
+            </div>
+            <br>
+        {%endfor%}
+    </div>
+
+</body>
+</html>
